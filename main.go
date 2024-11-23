@@ -24,7 +24,7 @@ func main() {
 		Msg = string(c.Body())
 		mu.Unlock()
 		return c.JSON(fiber.Map{
-			"msg": Msg
+			"msg": Msg,
 		})
 	})
 
