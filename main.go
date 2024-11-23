@@ -22,7 +22,7 @@ func main() {
 
 	app.Post("/", func(c *fiber.Ctx) error {
 		type Request struct {
-			newMsg string `json:"newMsg"`
+			newMsg string `json:"msg"`
 		}
 		var body Request
 		if err := c.BodyParser(&body); err != nil {
