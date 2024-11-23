@@ -11,7 +11,7 @@ func main() {
 	var mu sync.Mutex
 
 	app := fiber.New()
-	app.Use(cors.new(cors.Config{
+	app.Use(cors.New(cors.Config{
 		AllowOrigins: "*",
 		AllowMethods: "GET,POST",
 		AllowHeaders: "Origin, Content-Type, Accept",
