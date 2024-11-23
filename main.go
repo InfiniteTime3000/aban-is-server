@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	msg := "Default message"
+	Msg := "..."
 	var mu sync.Mutex
 
 	app := fiber.New()
@@ -16,13 +16,13 @@ func main() {
 		mu.Lock()
 		defer mu.Unlock()
 		return c.JSON(fiber.Map{
-			"msg": msg,
+			"msg": Msg,
 		})
 	})
 
 	app.Post("/", func(c *fiber.Ctx) error {
 		type Request struct {
-			NewMsg string `json:"newMsg"`
+			newMsg string `json:"newMsg"`
 		}
 		var body Request
 		if err := c.BodyParser(&body); err != nil {
@@ -31,10 +31,10 @@ func main() {
 			})
 		}
 		mu.Lock()
-		msg = body.NewMsg
+		Msg = body.newMsg
 		mu.Unlock()
 		return c.JSON(fiber.Map{
-			"msg": msg,
+			"msg": Msg,
 		})
 	})
 
