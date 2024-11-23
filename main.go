@@ -3,6 +3,7 @@ package main
 import (
 	"sync"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 )
 
 func main() {
@@ -10,6 +11,11 @@ func main() {
 	var mu sync.Mutex
 
 	app := fiber.New()
+	app.Use(cors.new(cors.Config{
+		AllowOrigins: "*",
+		AllowMethods: "GET,POST",
+		AllowHeaders: "Origin, Content-Type, Accept"
+	}))
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		mu.Lock()
