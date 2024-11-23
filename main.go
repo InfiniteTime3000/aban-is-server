@@ -21,18 +21,8 @@ func main() {
 	})
 
 	app.Post("/", func(c *fiber.Ctx) error {
-		type Request struct {
-			newMsg string `json:"msg"`
-		}
-		var body Request
-		fmt.Println(string(c.Body()))
-		if err := c.BodyParser(&body); err != nil {
-			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
-				"error": "Invalid JSON",
-			})
-		}
 		mu.Lock()
-		Msg = body.newMsg
+		Msg = string(c.Body())
 		mu.Unlock()
 		return c.JSON(fiber.Map{
 			"msg": body.newMsg,
