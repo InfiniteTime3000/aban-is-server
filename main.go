@@ -34,7 +34,7 @@ func main() {
 		Msg = body.newMsg
 		mu.Unlock()
 		return c.JSON(fiber.Map{
-			"msg": Msg,
+			"msg": body.newMsg,
 		})
 	})
 
