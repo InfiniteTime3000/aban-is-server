@@ -14,7 +14,7 @@ func main() {
 	app.Use(cors.new(cors.Config{
 		AllowOrigins: "*",
 		AllowMethods: "GET,POST",
-		AllowHeaders: "Origin, Content-Type, Accept"
+		AllowHeaders: "Origin, Content-Type, Accept",
 	}))
 
 	app.Get("/", func(c *fiber.Ctx) error {
