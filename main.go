@@ -1,23 +1,42 @@
 package main
 
 import (
-	"log"
+	"sync"
 
 	"github.com/gofiber/fiber/v2"
 )
 
 func main() {
-	// Fiber instance
+	msg := "Default message"
+	var mu sync.Mutex
+
 	app := fiber.New()
 
-	// Routes
-	app.Get("/", hello)
+	app.Get("/", func(c *fiber.Ctx) error {
+		mu.Lock()
+		defer mu.Unlock()
+		return c.JSON(fiber.Map{
+			"msg": msg,
+		})
+	})
 
-	// Start server
-	log.Fatal(app.Listen(":6969"))
-}
+	app.Post("/", func(c *fiber.Ctx) error {
+		type Request struct {
+			NewMsg string `json:"newMsg"`
+		}
+		var body Request
+		if err := c.BodyParser(&body); err != nil {
+			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+				"error": "Invalid JSON",
+			})
+		}
+		mu.Lock()
+		msg = body.NewMsg
+		mu.Unlock()
+		return c.JSON(fiber.Map{
+			"msg": msg,
+		})
+	})
 
-// Handler
-func hello(c *fiber.Ctx) error {
-	return c.SendString("Hello, World 👋!")
+	app.Listen(":6969")
 }
