@@ -2,7 +2,6 @@ package main
 
 import (
 	"sync"
-	"fmt"
 	"github.com/gofiber/fiber/v2"
 )
 
