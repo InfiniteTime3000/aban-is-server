@@ -25,7 +25,7 @@ func main() {
 			newMsg string `json:"msg"`
 		}
 		var body Request
-		fmt.Println(c.Body())
+		fmt.Println(c.BodyParser())
 		if err := c.BodyParser(&body); err != nil {
 			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 				"error": "Invalid JSON",
