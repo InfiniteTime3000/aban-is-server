@@ -2,7 +2,7 @@ package main
 
 import (
 	"sync"
-
+	"fmt"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -30,6 +30,7 @@ func main() {
 				"error": "Invalid JSON",
 			})
 		}
+		fmt.Println(body.newMsg)
 		mu.Lock()
 		Msg = body.newMsg
 		mu.Unlock()
