@@ -25,12 +25,12 @@ func main() {
 			newMsg string `json:"msg"`
 		}
 		var body Request
+		fmt.Println(c.Body())
 		if err := c.BodyParser(&body); err != nil {
 			return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 				"error": "Invalid JSON",
 			})
 		}
-		fmt.Println(body.newMsg)
 		mu.Lock()
 		Msg = body.newMsg
 		mu.Unlock()
