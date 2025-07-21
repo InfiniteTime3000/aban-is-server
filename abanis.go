@@ -23,6 +23,7 @@ func loadMessage() string {
 
 func saveMessage(msg string) {
 	err := os.WriteFile(msgFile, []byte(msg), 0644)
+	fmt.Println("Saving message:", msg)
 
 	if err != nil {
 		fmt.Println("Failed to save message:", err)
